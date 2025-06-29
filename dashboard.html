@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard - TravelMate</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">TravelMate</div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="booking.html">Book a Trip</a>
+        <a href="admin.html">Admin Panel</a>
+        <a href="login.html" class="login-btn">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero-section">
+    <h1>Welcome to Your Dashboard</h1>
+    <p>Manage your bookings, view upcoming trips, and explore new destinations.</p>
+    <a href="booking.html" class="cta-btn">Book Another Trip</a>
+  </section>
+
+  <main>
+    <div class="details">
+      <h2>Your Booking History</h2>
+      <table style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr style="background:#f0f0f0;">
+            <th style="padding:10px; border: 1px solid #ccc;">Package</th>
+            <th style="padding:10px; border: 1px solid #ccc;">Date</th>
+            <th style="padding:10px; border: 1px solid #ccc;">Location</th>
+            <th style="padding:10px; border: 1px solid #ccc;">Status</th>
+          </tr>
+        </thead>
+        <tbody id="bookingTable">
+          <!-- Data will be loaded here via JS -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 TravelMate | Your trusted travel partner
+  </footer>
+
+  <script>
+    // Dummy data - replace with real data via fetch if needed
+    const bookings = [
+      { package: "Family Pack", date: "2025-07-10", location: "Manali", status: "Confirmed" },
+      { package: "Solo Pack", date: "2025-08-22", location: "Ladakh", status: "Confirmed" },
+    ];
+
+    const tableBody = document.getElementById("bookingTable");
+    bookings.forEach(b => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td style="padding:10px; border: 1px solid #ccc;">${b.package}</td>
+        <td style="padding:10px; border: 1px solid #ccc;">${b.date}</td>
+        <td style="padding:10px; border: 1px solid #ccc;">${b.location}</td>
+        <td style="padding:10px; border: 1px solid #ccc;">${b.status}</td>
+      `;
+      tableBody.appendChild(row);
+    });
+  </script>
+</body>
+</html>

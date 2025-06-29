@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel - TravelMate</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">TravelMate</div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">User Dashboard</a>
+        <a href="booking.html">Book Trip</a>
+        <a href="/logout" class="login-btn">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero-section">
+    <h1>Admin Panel</h1>
+    <p>Manage user bookings, view customer details, and monitor package activity.</p>
+  </section>
+
+  <main>
+    <div class="details">
+      <h2>All Bookings</h2>
+      <table style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr style="background:#f0f0f0;">
+            <th style="padding:10px; border: 1px solid #ccc;">Name</th>
+            <th style="padding:10px; border: 1px solid #ccc;">Email</th>
+            <th style="padding:10px; border: 1px solid #ccc;">Phone</th>
+            <th style="padding:10px; border: 1px solid #ccc;">Package</th>
+            <th style="padding:10px; border: 1px solid #ccc;">Date</th>
+          </tr>
+        </thead>
+        <tbody id="adminBookingTable">
+          <!-- Booking data will be injected here -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 TravelMate | Admin Control Panel
+  </footer>
+
+  <script>
+    // Fetch booking data from server
+    fetch('/bookings')
+      .then(res => res.json())
+      .then(data => {
+        const adminTable = document.getElementById("adminBookingTable");
+        if (data.length === 0) {
+          adminTable.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:15px;">No bookings found.</td></tr>`;
+        } else {
+          data.forEach(b => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td style="padding:10px; border: 1px solid #ccc;">${b.name}</td>
+              <td style="padding:10px; border: 1px solid #ccc;">${b.email}</td>
+              <td style="padding:10px; border: 1px solid #ccc;">${b.phone}</td>
+              <td style="padding:10px; border: 1px solid #ccc;">${b.package}</td>
+              <td style="padding:10px; border: 1px solid #ccc;">${b.date}</td>
+            `;
+            adminTable.appendChild(row);
+          });
+        }
+      })
+      .catch(err => {
+        document.getElementById("adminBookingTable").innerHTML =
+          `<tr><td colspan="5" style="text-align:center; padding:15px; color:red;">Error loading bookings.</td></tr>`;
+        console.error('❌ Error fetching bookings:', err);
+      });
+  </script>
+</body>
+</html>

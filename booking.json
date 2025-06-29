@@ -1,0 +1,37 @@
+[
+  {
+    "name": "jack",
+    "email": "email@gamil.com",
+    "phone": "7986452311",
+    "date": "2000-02-10",
+    "package": "solo"
+  },
+  {
+    "name": "askdhf",
+    "email": "askdhf@lsakdjhf",
+    "phone": "79645312123",
+    "date": "2033-11-01",
+    "package": "solo"
+  },
+  {
+    "name": "aran",
+    "email": "sdjf@gmail.com",
+    "phone": "79846513278",
+    "date": "2000-02-01",
+    "package": "family"
+  },
+  {
+    "name": "jkhgkg",
+    "email": "jghfjh@gmail.com",
+    "phone": "983840220",
+    "date": "2002-01-04",
+    "package": "family"
+  },
+  {
+    "name": "Ruhan Khan",
+    "email": "ruhan@gmail.com",
+    "phone": "8794561327",
+    "date": "2525-05-10",
+    "package": "Solo Pack - ₹5,000"
+  }
+]

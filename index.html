@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WanderWithUs - Explore the World</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="promo-bar">
+    🚨 End-of-Season Sale: Up to 20% off across all packages! Book now!
+  </div>
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">🌍 TravelMate</div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="admin.html">Admin Panel</a>
+        <a href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+  <!-- <main class="homepage-content">
+    <section class="hero-section">
+      <h1>Explore the World with Confidence</h1>
+      <p>Find the best solo, family, and group packages tailored for your dream vacation.</p>
+      <a href="booking.html" class="cta-btn">Book a Trip</a>
+    </section> -->
+
+    <section id="hero" class="hero-text-section">
+  <div class="hero-content">
+    <h1>Explore the World with Confidence</h1>
+    <p>Find the best solo, family, and group packages tailored for your dream vacation.</p>
+    <button onclick="scrollToPackages()">Book a Trip</button>
+  </div>
+</section>
+
+    <main class="homepage-content">
+<!-- <section class="hero-text-section">
+  <h1>Explore with WanderWithUs</h1>
+    <p>Tailored travel experiences across 25+ countries — solo, family or friends.</p>
+    <button onclick="scrollToPackages()">View Packages</button>
+</section> -->
+
+    <section class="filter">
+      <label for="countryFilter">🌐 Filter by Destination:</label>
+      <select id="countryFilter">
+        <option value="all">All Countries</option>
+        <option value="India">India</option>
+        <option value="Iran">Iran</option>
+        <option value="Italy">Italy</option>
+        <option value="Singapore">Singapore</option>
+        <option value="Thailand">Thailand</option>
+      </select>
+    </section>
+
+    <section class="packages" id="packagesContainer">
+      <div class="package-card" data-country="India">
+        <h3>Solo Pack - ₹5,000</h3>
+        <p>Perfect for solo travelers seeking peace, exploration, and independence.</p>
+      </div>
+      <div class="package-card" data-country="India">
+        <h3>Family Pack - ₹10,000</h3>
+        <p>Great for family vacations filled with activities, comfort, and memories.</p>
+      </div>
+      <div class="package-card" data-country="Thailand">
+        <h3>Friends Pack - ₹15,000</h3>
+        <p>Best suited for friends who want fun, excitement, and adventure together.</p>
+      </div>
+      <div class="package-card" data-country="Italy">
+        <h3>Romantic Italy Getaway - ₹40,000</h3>
+        <p>Perfect for couples. Includes Venice gondola rides and Tuscany wine tours.</p>
+      </div>
+      <div class="package-card" data-country="Singapore">
+        <h3>Singapore Discovery Tour - ₹25,000</h3>
+        <p>Enjoy Sentosa, Gardens by the Bay, and Marina Bay skyline in 3 days.</p>
+      </div>
+      <div class="package-card" data-country="Iran">
+        <h3>Culture Tour - ₹35,000</h3>
+        <p>Explore Persian heritage with guided tours in Tehran, Yazd, and Esfahan.</p>
+      </div>
+    </section>
+<section class="reviews-section" style="padding: 40px;">
+  <h2 style="text-align: center;">🌍 Country Reviews</h2>
+  <div id="reviewGridContainer" class="review-grid"></div>
+</section>
+
+
+
+    <!-- <section class="details">
+      <h2>Featured Itineraries</h2>
+      <div class="detail-card">
+        <h3>Solo Pack – Iran Culture Tour (5 Days)</h3>
+        <ul>
+          <li>Day 1: Tehran – Bazaar & Grand Mosque</li>
+          <li>Day 2: Yazd – Ancient Zoroastrian Heritage Sites</li>
+          <li>Day 3: Desert drive to Qom & Windcatchers</li>
+          <li>Day 4: Esfahan – Imam Square + Bridges</li>
+          <li>Day 5: Return via Kashan – Ghiilani House + Gardens</li>
+          <li>All-inclusive: ₹35,000 (incl. hotel, transport, guides)</li>
+        </ul>
+      </div>
+    </section> -->
+
+    
+
+
+    <section class="reviews">
+      <h2> Traveler Stories</h2>
+      <blockquote>“My solo tour to Iran was beyond amazing... Authentic, safe, unforgettable.” – Sneha Verma</blockquote>
+      <blockquote>“Our Thailand family trip was perfect for all ages. Hassle-free and fun!” – Rajeev Nair</blockquote>
+    </section>
+
+    <section class="submit-review">
+      <h2> Write a Review</h2>
+      <form id="reviewForm">
+        <input id="reviewerName" type="text" placeholder="Your Name" required />
+        <input id="country" type="text" placeholder="Country Visited" required />
+        <textarea id="reviewText" placeholder="Describe your trip..." required></textarea>
+        <button type="submit">Submit Review</button>
+      </form>
+    </section>
+
+    <section class="testimonial-slider">
+      <h2>🎥 Customer Video</h2>
+      <video controls src="videos/testimonial1.mp4" width="100%"></video>
+    </section>
+
+    <section class="faqs">
+      <h2> Frequently Asked Questions</h2>
+      <div class="faq">
+        <h4>What payment options are available?</h4>
+        <p>We accept UPI, credit/debit cards, and bank transfers. All taxes included in the final quote.</p>
+      </div>
+      <div class="faq">
+        <h4>Can children travel with Family Pack?</h4>
+        <p>Yes, our packages are kid-friendly and include fun activities for all ages.</p>
+      </div>
+    </section>
+
+    <section class="contact">
+      <h2>Reach Us</h2>
+      <p>+91‑78279‑56056</p>
+      <p> support@wanderwithus.com</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>©2025 WanderWithUs.com | <a href="admin.html">Admin Panel</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

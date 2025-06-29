@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - Travel Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="modern-login">
+  <div class="login-wrapper">
+    <div class="form-section">
+      <div class="form-content">
+        <h2>Create your account</h2>
+        <p>Sign up and start your travel journey.</p>
+        <form id="registerForm">
+          <input type="text" id="fullname" placeholder="Full Name" required />
+          <input type="email" id="email" placeholder="Email Address" required />
+          <input type="password" id="password" placeholder="Create Password" required />
+          <button type="submit">Register</button>
+          <div class="auth-buttons">
+            <button type="button" class="apple">Sign up with Apple</button>
+            <button type="button" class="google">Sign up with Google</button>
+          </div>
+        </form>
+        <p class="footer-text">
+          Already have an account? <a href="login.html">Login here</a>
+        </p>
+      </div>
+    </div>
+    <div class="image-section">
+      <div class="overlay">
+        <h3>Explore Hidden Gems</h3>
+        <p>Plan hassle-free travel with us.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = {
+        name: document.getElementById("fullname").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        password: document.getElementById("password").value.trim()
+      };
+
+      const res = await fetch("http://localhost:3000/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        alert("Registration successful!");
+        window.location.href = data.redirect || "login.html";
+      } else {
+        alert(data.message || "Registration failed.");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Travel Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="modern-login">
+  <div class="login-wrapper">
+    <div class="form-section">
+      <div class="form-content">
+        <h2>Login to your account</h2>
+        <p>Access your travel dashboard anytime, anywhere.</p>
+        <form id="loginForm">
+          <input type="text" id="username" placeholder="Enter your username" required />
+          <input type="password" id="password" placeholder="Enter your password" required />
+          <button type="submit">Login</button>
+          <div class="auth-buttons">
+            <button class="apple">Sign in with Apple</button>
+            <button class="google">Sign in with Google</button>
+          </div>
+        </form>
+        <p class="footer-text">
+          Don't have an account? <a href="register.html">Register here</a>
+        </p>
+      </div>
+    </div>
+    <div class="image-section">
+      <div class="overlay">
+        <h3>Plan Your Dream Trip</h3>
+        <p>Solo • Family • Friends</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Admin Login Script (only added code below) -->
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      const res = await fetch("/admin-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        window.location.href = "admin.html";
+      } else {
+        alert("Invalid username or password.");
+      }
+    });
+  </script>
+</body>
+</html>

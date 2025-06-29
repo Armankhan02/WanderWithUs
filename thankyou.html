@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Thank You</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <h1>Booking Confirmed ✅</h1>
+    <div id="receipt">
+      <table border="1" cellpadding="10">
+        <tr><th>Name</th><td id="rName"></td></tr>
+        <tr><th>Email</th><td id="rEmail"></td></tr>
+        <tr><th>Phone</th><td id="rPhone"></td></tr>
+        <tr><th>Travel Date</th><td id="rDate"></td></tr>
+        <tr><th>Package</th><td id="rPackage"></td></tr>
+      </table>
+    </div>
+    <br />
+    <button onclick="downloadPDF()">📥 Download PDF Receipt</button>
+    <br /><br />
+    <a href="dashboard.html">Go to Dashboard</a>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    const data = JSON.parse(localStorage.getItem("bookingDetails") || "{}");
+
+    document.getElementById("rName").innerText = data.name || "-";
+    document.getElementById("rEmail").innerText = data.email || "-";
+    document.getElementById("rPhone").innerText = data.phone || "-";
+    document.getElementById("rDate").innerText = data.date || "-";
+    document.getElementById("rPackage").innerText = data.package || "-";
+
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(16);
+      doc.text("WanderWithUs Travel Receipt", 20, 20);
+      doc.setFontSize(12);
+      doc.text(`Name: ${data.name}`, 20, 40);
+      doc.text(`Email: ${data.email}`, 20, 50);
+      doc.text(`Phone: ${data.phone}`, 20, 60);
+      doc.text(`Travel Date: ${data.date}`, 20, 70);
+      doc.text(`Package: ${data.package}`, 20, 80);
+      doc.save("TravelReceipt.pdf");
+    }
+  </script>
+</body>
+</html>
