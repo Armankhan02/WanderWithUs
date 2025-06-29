@@ -38,7 +38,40 @@
     </div>
   </div>
 
-  <script>
+ <script>
+  // Load package from localStorage
+  const selected = JSON.parse(localStorage.getItem("selectedPackage"));
+
+  // Auto-fill dropdown and show package summary
+  document.addEventListener("DOMContentLoaded", () => {
+    if (selected) {
+      // Set dropdown selection
+      const packageDropdown = document.getElementById("package");
+      if (packageDropdown) {
+        const options = packageDropdown.options;
+        for (let i = 0; i < options.length; i++) {
+          if (options[i].value.toLowerCase().includes(selected.type.toLowerCase())) {
+            options[i].selected = true;
+            break;
+          }
+        }
+      }
+
+      // Show package summary above form
+      const summary = document.createElement("div");
+      summary.innerHTML = `
+        <div style="margin-bottom: 15px; text-align: center;">
+          <img src="${selected.image}" alt="${selected.title}" style="width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px;" />
+          <h3 style="margin: 10px 0 5px;">${selected.title}</h3>
+          <p><strong>${selected.price}</strong> – ${selected.description}</p>
+        </div>
+      `;
+      const form = document.getElementById("bookingForm");
+      if (form) form.parentNode.insertBefore(summary, form);
+    }
+  });
+
+  // Form submit logic
   document.getElementById('bookingForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
