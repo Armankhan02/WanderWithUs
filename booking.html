@@ -12,23 +12,32 @@
       <div class="form-content">
         <h2>Book Your Trip</h2>
         <p>Fill in your details to confirm your package.</p>
-        <section class="booking-section">
-  <h2>Book Your Trip</h2>
-  <form id="bookingForm">
-    <input type="text" id="name" placeholder="Your Name" required />
-    <input type="email" id="email" placeholder="Your Email" required />
-    <input type="tel" id="phone" placeholder="Phone Number" required />
-    <input type="date" id="date" required />
-    <input type="text" id="package" placeholder="Package Name" required />
-    <button class="book-btn" type="submit">Book Now</button>
-  </form>
-</section>
+
+        <form id="bookingForm">
+          <!-- Summary will be injected here -->
+          <div id="summaryContainer"></div>
+
+          <input type="text" id="name" placeholder="Your Name" required />
+          <input type="email" id="email" placeholder="Your Email" required />
+          <input type="tel" id="phone" placeholder="Phone Number" required />
+          <input type="date" id="date" required />
+
+          <select id="package" required>
+            <option value="">-- Select Package --</option>
+            <option value="Solo Pack - ₹5000">Solo Pack - ₹5000</option>
+            <option value="Friends Pack - ₹15,000">Friends Pack - ₹15,000</option>
+            <option value="Family Pack - ₹10,000">Family Pack - ₹10,000</option>
+          </select>
+
+          <button class="book-btn" type="submit">Book Now</button>
+        </form>
 
         <p class="footer-text">
           Need help? <a href="contact.html">Contact us</a>
         </p>
       </div>
     </div>
+
     <div class="image-section">
       <div class="overlay">
         <h3>Plan With Confidence</h3>
@@ -37,26 +46,21 @@
     </div>
   </div>
 
- <script>
-  // Load package from localStorage
+<script>
   const selected = JSON.parse(localStorage.getItem("selectedPackage"));
 
-  // Auto-fill dropdown and show package summary
   document.addEventListener("DOMContentLoaded", () => {
     if (selected) {
-      // Set dropdown selection
+      // Preselect matching option
       const packageDropdown = document.getElementById("package");
-      if (packageDropdown) {
-        const options = packageDropdown.options;
-        for (let i = 0; i < options.length; i++) {
-          if (options[i].value.toLowerCase().includes(selected.type.toLowerCase())) {
-            options[i].selected = true;
-            break;
-          }
+      for (let opt of packageDropdown.options) {
+        if (selected.title && opt.value.toLowerCase().includes(selected.title.toLowerCase())) {
+          opt.selected = true;
+          break;
         }
       }
 
-      // Show package summary above form
+      // Insert package summary above form
       const summary = document.createElement("div");
       summary.innerHTML = `
         <div style="margin-bottom: 15px; text-align: center;">
@@ -65,12 +69,11 @@
           <p><strong>${selected.price}</strong> – ${selected.description}</p>
         </div>
       `;
-      const form = document.getElementById("bookingForm");
-      if (form) form.parentNode.insertBefore(summary, form);
+      const summaryContainer = document.getElementById("summaryContainer");
+      if (summaryContainer) summaryContainer.appendChild(summary);
     }
   });
 
-  // Form submit logic
   document.getElementById('bookingForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -84,9 +87,7 @@
 
     fetch("https://wanderwithus-1.onrender.com/book", {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
     })
     .then(res => res.json())
@@ -104,4 +105,5 @@
     });
   });
 </script>
-
+</body>
+</html>
