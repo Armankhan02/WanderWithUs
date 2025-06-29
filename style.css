@@ -687,3 +687,88 @@ form {
   display: block;
 }
 
+/* Fix Booking Form Overflow Issue */
+.booking-form-container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.booking-left, .booking-right {
+  flex: 1 1 400px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.booking-left {
+  background: #fffef2;
+}
+
+.booking-left img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.booking-left h2 {
+  margin-bottom: 10px;
+  color: #003580;
+}
+
+.booking-left p {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.booking-left form input,
+.booking-left form select,
+.booking-left form button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.booking-left form button {
+  background: linear-gradient(to right, #00b4db, #0083b0);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s ease;
+}
+
+.booking-left form button:hover {
+  background: linear-gradient(to right, #0083b0, #00b4db);
+}
+
+.booking-right {
+  background: url('images/plane.jpg') center/cover no-repeat;
+  position: relative;
+}
+
+.booking-right::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.3);
+}
+
+.booking-right .text-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(255,255,255,0.9);
+  padding: 20px;
+  border-radius: 10px;
+  color: #333;
+}
+
