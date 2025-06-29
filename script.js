@@ -260,9 +260,16 @@ function filterByCountry(country) {
 }
 
 function selectPackage(type) {
-  localStorage.setItem("selectedPackage", type);
-  window.location.href = "booking.html";
+  const all = Object.values(allPackages).flat();
+  const selected = all.find(p => p.type.toLowerCase() === type);
+  if (selected) {
+    localStorage.setItem("selectedPackage", JSON.stringify(selected));
+    window.location.href = "booking.html";
+  } else {
+    alert("Package not found!");
+  }
 }
+
 
 function renderCountryReviewsGrid() {
   const reviewContainer = document.getElementById('reviewGridContainer');
@@ -293,16 +300,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-function renderPackage(container, pack) {
-  container.innerHTML += `
-    <section class="package-card">
-      <img src="${pack.image}" alt="${pack.title}" style="width:100%; max-height:200px; object-fit:cover;" />
-      <h2>${pack.title}</h2>
-      <p>${pack.description}</p>
-      <p><strong>Price:</strong> ${pack.price}</p>
-      <button class="book-btn" onclick="selectPackage('${pack.type.toLowerCase()}')">
-        Book ${pack.type} →
-      </button>
-    </section>
-  `;
-}
+
