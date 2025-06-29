@@ -39,38 +39,37 @@
   </div>
 
   <script>
-    document.getElementById('bookingForm').addEventListener('submit', function (e) {
-      e.preventDefault();
+  document.getElementById('bookingForm').addEventListener('submit', function (e) {
+    e.preventDefault();
 
-      const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        date: document.getElementById('date').value,
-        package: document.getElementById('package').value
-      };
+    const formData = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      date: document.getElementById('date').value,
+      package: document.getElementById('package').value
+    };
 
-    fetch("https://travelmate-backend.onrender.com/book", ...) {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          alert(data.message || "Booking successful!");
-          window.location.href = data.redirect || "thankyou.html";
-        } else {
-          alert(data.message || "Booking failed. Please try again.");
-        }
-      })
-      .catch(err => {
-        console.error('Booking error:', err);
-        alert('❌ Booking failed. Please try again.');
-      });
+    fetch("https://wanderwithus-1.onrender.com/book", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert(data.message || "Booking successful!");
+        window.location.href = data.redirect || "thankyou.html";
+      } else {
+        alert(data.message || "Booking failed. Please try again.");
+      }
+    })
+    .catch(err => {
+      console.error('Booking error:', err);
+      alert('❌ Booking failed. Please try again.');
     });
-  </script>
-</body>
-</html>
+  });
+</script>
+
