@@ -12,19 +12,18 @@
       <div class="form-content">
         <h2>Book Your Trip</h2>
         <p>Fill in your details to confirm your package.</p>
-        <form id="bookingForm">
-          <input type="text" id="name" placeholder="Full Name" required />
-          <input type="email" id="email" placeholder="Email Address" required />
-          <input type="text" id="phone" placeholder="Phone Number" required />
-          <select id="package" required>
-            <option value="" disabled selected>Select Package</option>
-            <option value="Solo Pack - ₹5,000">Solo Pack - ₹5,000</option>
-            <option value="Family Pack - ₹10,000">Family Pack - ₹10,000</option>
-            <option value="Friends Pack - ₹15,000">Friends Pack - ₹15,000</option>
-          </select>
-          <input type="date" id="date" required />
-          <button type="submit">Confirm Booking</button>
-        </form>
+        <section class="booking-section">
+  <h2>Book Your Trip</h2>
+  <form id="bookingForm">
+    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="email" id="email" placeholder="Your Email" required />
+    <input type="tel" id="phone" placeholder="Phone Number" required />
+    <input type="date" id="date" required />
+    <input type="text" id="package" placeholder="Package Name" required />
+    <button class="book-btn" type="submit">Book Now</button>
+  </form>
+</section>
+
         <p class="footer-text">
           Need help? <a href="contact.html">Contact us</a>
         </p>
