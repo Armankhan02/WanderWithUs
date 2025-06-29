@@ -11,23 +11,28 @@
     <div class="form-section">
       <div class="form-content">
         <h2>Book Your Trip</h2>
-        <p>Fill in your details to confirm your package.</p>
+        <p>Fill in your details and choose your perfect getaway.</p>
 
+        <!-- Package Preview Image -->
+        <div id="packagePreview" style="margin-bottom: 20px; text-align: center; display: none;">
+          <img id="previewImage" src="" alt="Package Image" style="width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px;" />
+          <h3 id="previewTitle" style="margin: 10px 0 5px;"></h3>
+          <p id="previewDescription"></p>
+        </div>
+
+        <!-- Booking Form -->
         <form id="bookingForm">
-          <!-- Summary will be injected here -->
-          <div id="summaryContainer"></div>
+          <select id="package" required>
+            <option value="">-- Select Package --</option>
+            <option value="Solo Pack - ₹5,000">Solo Pack - ₹5,000</option>
+            <option value="Family Pack - ₹10,000">Family Pack - ₹10,000</option>
+            <option value="Friends Pack - ₹15,000">Friends Pack - ₹15,000</option>
+          </select>
 
           <input type="text" id="name" placeholder="Your Name" required />
           <input type="email" id="email" placeholder="Your Email" required />
           <input type="tel" id="phone" placeholder="Phone Number" required />
           <input type="date" id="date" required />
-
-          <select id="package" required>
-            <option value="">-- Select Package --</option>
-            <option value="Solo Pack - ₹5000">Solo Pack - ₹5000</option>
-            <option value="Friends Pack - ₹15,000">Friends Pack - ₹15,000</option>
-            <option value="Family Pack - ₹10,000">Family Pack - ₹10,000</option>
-          </select>
 
           <button class="book-btn" type="submit">Book Now</button>
         </form>
@@ -46,64 +51,87 @@
     </div>
   </div>
 
-<script>
-  const selected = JSON.parse(localStorage.getItem("selectedPackage"));
+  <script>
+    const packageData = {
+      "Solo Pack - ₹5,000": {
+        image: "images/solo.jpg",
+        title: "Solo Adventure in India",
+        description: "Explore breathtaking landscapes and spiritual getaways."
+      },
+      "Family Pack - ₹10,000": {
+        image: "images/family.jpg",
+        title: "Family Vacation in India",
+        description: "Temples, wildlife, and resorts tailored for families."
+      },
+      "Friends Pack - ₹15,000": {
+        image: "images/friends.jpg",
+        title: "Friends Getaway in India",
+        description: "Beaches, parties, and unforgettable memories."
+      }
+    };
 
-  document.addEventListener("DOMContentLoaded", () => {
-    if (selected) {
-      // Preselect matching option
-      const packageDropdown = document.getElementById("package");
-      for (let opt of packageDropdown.options) {
-        if (selected.title && opt.value.toLowerCase().includes(selected.title.toLowerCase())) {
-          opt.selected = true;
-          break;
+    const selected = JSON.parse(localStorage.getItem("selectedPackage"));
+
+    function updatePreview(packageName) {
+      const preview = packageData[packageName];
+      if (preview) {
+        document.getElementById("packagePreview").style.display = "block";
+        document.getElementById("previewImage").src = preview.image;
+        document.getElementById("previewTitle").innerText = preview.title;
+        document.getElementById("previewDescription").innerText = `${preview.description} – ${packageName.split(" - ")[1]}`;
+      } else {
+        document.getElementById("packagePreview").style.display = "none";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const dropdown = document.getElementById("package");
+
+      if (selected) {
+        for (let opt of dropdown.options) {
+          if (opt.value.toLowerCase().includes(selected.title.toLowerCase())) {
+            opt.selected = true;
+            updatePreview(opt.value);
+            break;
+          }
         }
       }
 
-      // Insert package summary above form
-      const summary = document.createElement("div");
-      summary.innerHTML = `
-        <div style="margin-bottom: 15px; text-align: center;">
-          <img src="${selected.image}" alt="${selected.title}" style="width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px;" />
-          <h3 style="margin: 10px 0 5px;">${selected.title}</h3>
-          <p><strong>${selected.price}</strong> – ${selected.description}</p>
-        </div>
-      `;
-      const summaryContainer = document.getElementById("summaryContainer");
-      if (summaryContainer) summaryContainer.appendChild(summary);
-    }
-  });
-
-  document.getElementById('bookingForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const formData = {
-      name: document.getElementById('name').value,
-      email: document.getElementById('email').value,
-      phone: document.getElementById('phone').value,
-      date: document.getElementById('date').value,
-      package: document.getElementById('package').value
-    };
-
-    fetch("https://wanderwithus-1.onrender.com/book", {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        alert(data.message || "Booking successful!");
-        window.location.href = data.redirect || "thankyou.html";
-      } else {
-        alert(data.message || "Booking failed. Please try again.");
-      }
-    })
-    .catch(err => {
-      console.error('Booking error:', err);
-      alert('❌ Booking failed. Please try again.');
+      dropdown.addEventListener("change", (e) => {
+        updatePreview(e.target.value);
+      });
     });
-  });
-</script>
+
+    document.getElementById('bookingForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        date: document.getElementById('date').value,
+        package: document.getElementById('package').value
+      };
+
+      fetch("https://wanderwithus-1.onrender.com/book", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert(data.message || "Booking successful!");
+          window.location.href = data.redirect || "thankyou.html";
+        } else {
+          alert(data.message || "Booking failed. Please try again.");
+        }
+      })
+      .catch(err => {
+        console.error('Booking error:', err);
+        alert('❌ Booking failed. Please try again.');
+      });
+    });
+  </script>
 </body>
 </html>
