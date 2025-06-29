@@ -30,9 +30,13 @@ if (fs.existsSync(bookingsTextFile)) {
   }).filter(Boolean);
 }
 
-// ===== Middleware =====
+// ===== ✅ Middleware (only ONCE!) =====
 app.use(cors({
-  origin: ['http://127.0.0.1:5500', 'http://localhost:5500'],
+  origin: [
+    'http://127.0.0.1:5500',
+    'http://localhost:5500',
+    'https://armankhan02.github.io'
+  ],
   methods: ['GET', 'POST'],
   credentials: true
 }));
@@ -46,7 +50,6 @@ app.use(session({
   saveUninitialized: true,
 }));
 
-// ✅ Serve static files
 app.use(express.static(__dirname));
 
 // ===== User Registration =====
@@ -59,12 +62,12 @@ app.post('/register', (req, res) => {
   res.json({ success: true, redirect: '/login.html' });
 });
 
-// ===== ✅ User Login (with session fix) =====
+// ===== User Login =====
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
   const user = users.find(u => u.email === email && u.password === password);
   if (user) {
-    req.session.user = user; // ✅ Session stored
+    req.session.user = user;
     res.json({ success: true, redirect: '/dashboard.html' });
   } else {
     res.json({ success: false });
@@ -149,11 +152,12 @@ app.get('/booking.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'booking.html'));
 });
 
+// ===== Bookings API =====
 app.get('/bookings', (req, res) => {
   res.json(bookings);
 });
 
-// ===== Protect Admin Page =====
+// ===== Admin Page (Protected) =====
 app.get('/admin.html', authMiddleware, (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
