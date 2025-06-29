@@ -49,33 +49,34 @@
     &copy; 2025 TravelMate | Admin Control Panel
   </footer>
 
-  <script>
-    // Fetch booking data from server
-    fetch('/bookings')
-      .then(res => res.json())
-      .then(data => {
-        const adminTable = document.getElementById("adminBookingTable");
-        if (data.length === 0) {
-          adminTable.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:15px;">No bookings found.</td></tr>`;
-        } else {
-          data.forEach(b => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-              <td style="padding:10px; border: 1px solid #ccc;">${b.name}</td>
-              <td style="padding:10px; border: 1px solid #ccc;">${b.email}</td>
-              <td style="padding:10px; border: 1px solid #ccc;">${b.phone}</td>
-              <td style="padding:10px; border: 1px solid #ccc;">${b.package}</td>
-              <td style="padding:10px; border: 1px solid #ccc;">${b.date}</td>
-            `;
-            adminTable.appendChild(row);
-          });
-        }
-      })
-      .catch(err => {
-        document.getElementById("adminBookingTable").innerHTML =
-          `<tr><td colspan="5" style="text-align:center; padding:15px; color:red;">Error loading bookings.</td></tr>`;
-        console.error('❌ Error fetching bookings:', err);
-      });
-  </script>
+ <script>
+  // Fetch booking data from backend API
+  fetch('https://wanderwithus-1.onrender.com/bookings')
+    .then(res => res.json())
+    .then(data => {
+      const adminTable = document.getElementById("adminBookingTable");
+      if (data.length === 0) {
+        adminTable.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:15px;">No bookings found.</td></tr>`;
+      } else {
+        data.forEach(b => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td style="padding:10px; border: 1px solid #ccc;">${b.name}</td>
+            <td style="padding:10px; border: 1px solid #ccc;">${b.email}</td>
+            <td style="padding:10px; border: 1px solid #ccc;">${b.phone}</td>
+            <td style="padding:10px; border: 1px solid #ccc;">${b.package}</td>
+            <td style="padding:10px; border: 1px solid #ccc;">${b.date}</td>
+          `;
+          adminTable.appendChild(row);
+        });
+      }
+    })
+    .catch(err => {
+      document.getElementById("adminBookingTable").innerHTML =
+        `<tr><td colspan="5" style="text-align:center; padding:15px; color:red;">Error loading bookings.</td></tr>`;
+      console.error('❌ Error fetching bookings:', err);
+    });
+</script>
+
 </body>
 </html>
